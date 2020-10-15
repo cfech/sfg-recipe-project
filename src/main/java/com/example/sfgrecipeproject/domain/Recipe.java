@@ -1,6 +1,7 @@
 package com.example.sfgrecipeproject.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -21,6 +22,12 @@ public class Recipe {
     private String directions;
     //private Difficulty difficulty;
 
+
+    //this means that the ingredient we are looking for will be in a field called
+    // "recipe" in the ingredients table
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
     //stand for large object storage
     @Lob
     private Byte[] image;
@@ -36,6 +43,14 @@ public class Recipe {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getDescription() {
